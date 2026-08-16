@@ -38,7 +38,44 @@ export function DashboardOverview({
   const [activeEmergencyCount, setActiveEmergencyCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+
+
+/* Hero Landing Section with Cultural Background */
+<section className="relative min-h-[400px] bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 overflow-hidden">
+  <div className="absolute inset-0">
+    <img
+      src="https://cdn.pixabay.com/photo/2016/08/18/15/43/petronas-2212018_1280.jpg"
+      alt="DUTA RANTAU Komuniti Indonesia di Malaysia"
+      className="object-cover w-full h-full"
+      loading="lazy"
+      width={1920}
+      height={1080}
+    />
+  </div>
+  <div className="relative z-10 flex flex-col items-center pt-12 pb-8 text-center text-slate-100">
+    <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
+      DUTA <span className="text-red-500">RANTAU</span>
+    </h1>
+    <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mt-4">
+      Komuniti Indonesia di Malaysia & Global
+    </p>
+    <div className="mt-6 flex gap-2 px-6 sm:px-0">
+      <a
+        href="/suggest"
+        className="px-6 py-3 rounded-full bg-red-600 text-white font-medium transition-colors hover:bg-red-500"
+        aria-label="Mulai dengan Tanya DUTA"
+      >
+        Tanya DUTA
+      </a>
+      <a
+        href="/kawan-rantau"
+        className="px-6 py-3 rounded-full bg-slate-800 text-slate-300 font-medium transition-colors hover:bg-slate-700"
+        aria-label="Jarak dengan Kawan Rantau"
+      >
+        Kawan Rantau
+      </a>
+    </div>
+  </section>  useEffect(() => {
     async function loadData() {
       try {
         const [sugRes, evRes, emRes] = await Promise.all([
