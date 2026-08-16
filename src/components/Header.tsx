@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "@/components/AuthProvider";
 import {
   Search,
   Menu,
@@ -13,13 +13,13 @@ import {
   User as UserIcon,
   ShieldCheck,
   Plane,
-  HeartHandshake,
   Lightbulb,
-  Briefcase,
   BookOpen,
-  Users
+  Users,
+  Briefcase,
+  HeartHandshake,
 } from "lucide-react";
-import { useToast } from "./Toast";
+import { useToast } from "@/components/Toast";
 
 interface HeaderProps {
   onToggleMobileSidebar: () => void;
@@ -49,18 +49,26 @@ export function Header({
   };
 
   const navBadges = [
-    { id: "suggest", label: "Suggest (Usulan)", icon: Lightbulb, color: "hover:border-amber-500 hover:text-amber-400" },
-    { id: "info", label: "Info & Paspor", icon: BookOpen, color: "hover:border-blue-500 hover:text-blue-400" },
-    { id: "kerja", label: "Kerja & Lapak", icon: Briefcase, color: "hover:border-emerald-500 hover:text-emerald-400" },
-    { id: "komuniti", label: "Komuniti Kota", icon: Users, color: "hover:border-purple-500 hover:text-purple-400" },
-    { id: "bantuan", label: "Bantuan Darurat", icon: HeartHandshake, color: "hover:border-red-500 hover:text-red-400" },
+    { id: "overview", label: "Beranda", icon: Lightbulb },
+    { id: "suggest", label: "Tanya DUTA", icon: Lightbulb },
+    { id: "layanan", label: "Layanan RI", icon: Building },
+    { id: "kerja", label: "Kerja", icon: Briefcase },
+    { id: "pasar", label: "Pasar Rantau", icon: ShoppingBag },
+    { id: "organisasi", label: "Organisasi", icon: Users },
+    { id: "info", label: "Info Rantau", icon: BookOpen },
+    { id: "bantuan", label: "Bantuan Darurat", icon: HeartHandshake },
   ];
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGlobalSearch(e.target.value);
+  };
+
   return (
-    <header className="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-xl border-b border-slate-800 text-slate-100 transition-all">
+    <header
+      className="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-xl border-b border-slate-800 text-slate-100 transition-all"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 gap-4">
-          
           {/* Left: Mobile Toggle & Brand Logo */}
           <div className="flex items-center gap-3">
             <button
@@ -74,40 +82,49 @@ export function Header({
             {/* Visual Logo inspired by DUTA RANTAU Graphic Artwork */}
             <div
               onClick={() => setActiveTab("overview")}
-              className="cursor-pointer flex items-center gap-3 group"
+              className="cursor-pointer flex items-center gap-3 group hover:scale-105 transition-transform duration-300"
+              aria-label="DUTA RANTAU Home"
             >
-              {/* Badge Icon */}
-              <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 border-2 border-red-600/80 shadow-lg shadow-red-950/50 flex items-center justify-center overflow-hidden transform group-hover:scale-105 transition-transform duration-300">
-                {/* Airplane trail graphic line */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 via-transparent to-red-500/20" />
-                <Plane className="absolute top-1.5 right-1.5 w-4 h-4 text-amber-400 transform rotate-45 group-hover:translate-x-1 transition-transform" />
-                
-                {/* Center text DR */}
-                <div className="relative font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-100 to-amber-300 text-xl leading-none">
-                  D<span className="text-red-500">R</span>
-                </div>
-
-                {/* Sub flag accent line */}
-                <div className="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-red-600 via-white to-amber-500" />
+              {/* Airplane trail graphic line */}
+              <div
+                className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 via-transparent to-red-500/20"
+                aria-hidden="true"
+              />
+              <Plane
+                className="absolute top-1.5 right-1.5 w-4 h-4 text-amber-400 transform rotate-45 group-hover:translate-x-1 transition-transform"
+                aria-hidden="true"
+              />
+              
+              {/* Center text DR */}
+              <div
+                className="relative font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-100 to-amber-300 text-xl leading-none"
+              >
+                D<span className="text-red-500">R</span>
               </div>
 
-              {/* Title & Tagline */}
-              <div className="hidden sm:block">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl font-black tracking-tight text-white font-sans">
-                    DUTA <span className="text-red-500">RANTAU</span>
-                  </span>
-                  <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase rounded bg-red-950 text-red-400 border border-red-800">
-                    Malaysia & Global
-                  </span>
-                </div>
-                <div className="flex items-center gap-1.5 text-[11px] font-semibold text-amber-400/90 tracking-wide">
-                  <span>BERSAMA</span>
-                  <span className="text-red-500">•</span>
-                  <span>TERHUBUNG</span>
-                  <span className="text-amber-400">•</span>
-                  <span>BERDAYA</span>
-                </div>
+              {/* Sub flag accent line */}
+              <div
+                className="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-red-600 via-white to-amber-500"
+                aria-hidden="true"
+              />
+            </div>
+
+            {/* Title & Tagline */}
+            <div className="hidden sm:block">
+              <div className="flex items-center gap-2">
+                <span className="text-xl font-black tracking-tight text-white font-sans">
+                  DUTA <span className="text-red-500">RANTAU</span>
+                </span>
+                <span className="px-1.5 py-0.5 text-[9px] font-bold rounded bg-red-950 text-red-400 border border-red-800">
+                  Malaysia & Global
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-amber-400/90 tracking-wide">
+                <span>BERSAMA</span>
+                <span className="text-red-500">•</span>
+                <span>TERHUBUNG</span>
+                <span className="text-amber-400">•</span>
+                <span>BERDAYA</span>
               </div>
             </div>
           </div>
@@ -115,22 +132,26 @@ export function Header({
           {/* Search Input Bar */}
           <div className="hidden md:flex flex-1 max-w-md mx-4">
             <div className="relative w-full">
-              <Search className="absolute left-3.5 top-2.5 w-4 h-4 text-slate-400" />
+              <Search
+                className="absolute left-3.5 top-2.5 w-4 h-4 text-slate-400"
+              />
               <input
                 type="text"
                 value={globalSearch}
                 onChange={(e) => setGlobalSearch(e.target.value)}
                 placeholder="Cari usulan, event, lowongan kerja, atau panduan konsuler..."
                 className="w-full pl-10 pr-4 py-2 text-xs rounded-full bg-slate-900 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-red-500/80 focus:ring-1 focus:ring-red-500/80 transition-all"
+                aria-label="Cari di DUTA RANTAU"
               />
               {globalSearch && (
                 <button
                   onClick={() => setGlobalSearch("")}
                   className="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-white"
+                  aria-label="Clear search"
                 >
                   Clear
-                </button>
-              )}
+                )
+              }
             </div>
           </div>
 
@@ -140,6 +161,7 @@ export function Header({
             <button
               onClick={() => setActiveTab("bantuan")}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-950/80 hover:bg-red-900 border border-red-700/80 text-red-200 text-xs font-bold transition-all shadow-md shadow-red-950/30 animate-pulse"
+              aria-label="Bantuan Darurat"
             >
               <PhoneCall className="w-3.5 h-3.5 text-red-400" />
               <span className="hidden sm:inline">Bantuan Darurat</span>
@@ -156,6 +178,7 @@ export function Header({
                     src={user.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`}
                     alt={user.name}
                     className="w-8 h-8 rounded-full border border-amber-400 object-cover"
+                    aria-label={user.name}
                   />
                   <div className="text-left hidden lg:block">
                     <p className="text-xs font-bold text-slate-100 leading-tight truncate max-w-[110px]">
@@ -170,7 +193,9 @@ export function Header({
 
                 {/* Persona Switcher Dropdown */}
                 {isPersonaMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-72 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-3 z-50 animate-in fade-in duration-150 text-slate-100">
+                  <div
+                    className="absolute right-0 mt-2 w-72 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-3 z-50 animate-in fade-in duration-150 text-slate-100"
+                  >
                     <div className="px-3 py-2 border-b border-slate-800 mb-2">
                       <p className="text-xs text-slate-400 font-medium">Masuk Sebagai:</p>
                       <p className="text-sm font-bold text-white flex items-center gap-1.5">
@@ -181,7 +206,9 @@ export function Header({
                     </div>
 
                     <div className="mb-2">
-                      <p className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
+                      <p
+                        className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1"
+                      >
                         <Sparkles className="w-3 h-3 text-amber-400" />
                         Ganti Persona Demo (1-Click)
                       </p>
@@ -234,42 +261,46 @@ export function Header({
                       </button>
                     </div>
                   </div>
-                )}
-              </div>
+                )
+              )
             ) : (
               <button
                 onClick={() => openAuthModal("login")}
                 className="px-4 py-2 rounded-full bg-red-600 hover:bg-red-500 text-white text-xs font-bold shadow-md shadow-red-900/30 transition-all"
+                aria-label="Masuk / Daftar"
               >
                 Masuk / Daftar
-              </button>
+              )
             )}
           </div>
-        </div>
 
-        {/* Sub-navigation Badges Bar inspired by Duta Rantau artwork */}
-        <div className="flex items-center gap-2 py-2 overflow-x-auto no-scrollbar border-t border-slate-800/60 text-xs">
-          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider shrink-0 mr-1">Akses Pintas:</span>
-          {navBadges.map((badge) => {
-            const Icon = badge.icon;
-            const isActive = activeTab === badge.id;
-            return (
-              <button
-                key={badge.id}
-                onClick={() => setActiveTab(badge.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-bold transition-all shrink-0 border text-xs ${
-                  isActive
-                    ? "bg-slate-800 text-white border-amber-400 shadow-sm"
-                    : `bg-slate-900/80 text-slate-300 border-slate-800 ${badge.color}`
-                }`}
-              >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-amber-400" : "text-slate-400"}`} />
-                <span>{badge.label}</span>
-              </button>
-            );
-          })}
+          {/* Sub-navigation Badges Bar inspired by Duta Rantau artwork */}
+          <div
+            className="flex items-center gap-2 py-2 overflow-x-auto no-scrollbar border-t border-slate-800/60 text-xs"
+          >
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider shrink-0 mr-1">Akses Pintas:</span>
+            {navBadges.map((badge) => {
+              const Icon = badge.icon;
+              const isActive = activeTab === badge.id;
+              return (
+                <button
+                  key={badge.id}
+                  onClick={() => setActiveTab(badge.id)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-bold transition-all shrink-0 border text-xs ${
+                    isActive
+                      ? "bg-slate-800 text-white border-amber-500 shadow-sm"
+                      : `bg-slate-900/80 text-slate-300 border-slate-800`}
+                  }`}
+                >
+                  <Icon
+                    className={`w-3.5 h-3.5 ${isActive ? "text-amber-500" : "text-slate-400"}`}
+                  />
+                  <span>{badge.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
-
       </div>
     </header>
   );

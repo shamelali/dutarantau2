@@ -5,3 +5,4 @@ node_modules/
 .next/
 node_modules/@next/swc*
 .next/node_modules/
+.env
