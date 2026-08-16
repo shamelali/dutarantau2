@@ -155,8 +155,8 @@ export function KawanRantauView({ onClose }: KawanRantauProps) {
               Pekerja
             </button>
             <button
-              onClick={() => handleProfessionChange("Wirasatwa)}
-              className={`w-full py-2 px-3 rounded text-${professionFilter === "Wiraswa" ? "white" : "slate-400"} bg-slate-900 hover:bg-slate-800 text-sm transition-colors ${professionFilter === "Wiraswa" ? "border-t-2 border-amber-500" : ""}`}
+              onClick={() => handleProfessionChange("Wiraswasta")}
+              className={`w-full py-2 px-3 rounded text-${professionFilter === "Wiraswasta" ? "white" : "slate-400"} bg-slate-900 hover:bg-slate-800 text-sm transition-colors ${professionFilter === "Wiraswasta" ? "border-t-2 border-amber-500" : ""}`}
             >
               Wiraswasta
             </button>
@@ -186,10 +186,7 @@ export function KawanRantauView({ onClose }: KawanRantauProps) {
                 <div
                   className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center flex-shrink-0"
                 >
-                  {user.avatar
-                    ? `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`
-                    : "👤"}
-                  : user.name.charAt(0).toUpperCase()}
+                  {user.avatar ? `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}` : "👤"}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium truncate">{user.name}</p>
