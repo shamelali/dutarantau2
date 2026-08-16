@@ -2,3 +2,6 @@ node_modules
 node_modules/
 @next/swc*
 @next/swc*
+.next/
+node_modules/@next/swc*
+.next/node_modules/
